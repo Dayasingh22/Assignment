@@ -120,31 +120,6 @@ export default function NewsCards(props) {
     setPage(0);
   };
 
-  const columns = [
-    { id: "Image", label: "Image", minWidth: 170 },
-    { id: "Source", label: "Source", minWidth: 100 },
-    {
-      id: "Author",
-      label: "Author",
-      minWidth: 170,
-    },
-    {
-      id: "Title",
-      label: "Title",
-      minWidth: 170,
-    },
-    {
-      id: "Date",
-      label: "Date",
-      minWidth: 170,
-    },
-    {
-      id: "URL",
-      label: "URL",
-      minWidth: 170,
-    },
-  ];
-
   const handleChange = (e) => {
     console.log(e.target.value);
     var input, filter, table, tr, td, i, txtValue;
@@ -186,15 +161,20 @@ export default function NewsCards(props) {
         >
           <TableHead>
             <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
+              <TableCell>Image</TableCell>
+              <TableCell>Source</TableCell>
+              <TableCell>Author</TableCell>
+              <TableCell>Title</TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={props.sortBy === "date"}
+                  direction={props.sortOrder}
+                  onClick={props.requestSort("date")}
                 >
-                  {column.label}
-                </TableCell>
-              ))}
+                  Date
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>URL</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -202,7 +182,7 @@ export default function NewsCards(props) {
               ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               : rows
             ).map((row) => (
-              <TableRow key={row.author}>
+              <TableRow key={row.urlToImage}>
                 <TableCell component="th" scope="row">
                   <img
                     className="card-img-top"
